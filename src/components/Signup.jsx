@@ -1,12 +1,23 @@
+import { useContext } from "react";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../Provider/AuthProvider";
 
 const Signup = () => {
+  const { createUser } = useContext(AuthContext);
+
   const handleSignUp = (e) => {
     e.preventDefault();
     const email = e.target.email.value;
     const password = e.target.password.value;
     const name = e.target.name.value;
-    console.log(name, password, email);
+    console.log(name);
+    createUser(email, password)
+      .then((result) => {
+        console.log(result);
+      })
+      .catch((error) => {
+        console.log("ERROR: " + error);
+      });
   };
   return (
     <div className="hero mt-12 ">
@@ -58,7 +69,7 @@ const Signup = () => {
               </label>
             </div>
             <div className="form-control mt-6">
-              <button className="btn btn-primary"></button>
+              <button className="btn btn-primary">Sign up</button>
             </div>
           </form>
           <p className="text-sm my-3 text-center">

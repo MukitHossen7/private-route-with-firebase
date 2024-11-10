@@ -1,6 +1,10 @@
+import { useContext } from "react";
 import { Link, NavLink } from "react-router-dom";
+import { AuthContext } from "../../Provider/AuthProvider";
 
 const Header = () => {
+  const { profession } = useContext(AuthContext);
+  console.log(profession);
   return (
     <div className="pt-7">
       <div className="navbar bg-base-100">

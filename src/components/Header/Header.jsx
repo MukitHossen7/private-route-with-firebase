@@ -45,7 +45,7 @@ const Header = () => {
           <Link className="text-xl font-bold">daisyUI</Link>
         </div>
         <div className="navbar-center hidden lg:flex">
-          <ul className="menu menu-horizontal px-1 gap-10">
+          <ul className="menu menu-horizontal px-1 gap-10 font-bold">
             <NavLink to="/">Home</NavLink>
             {!user && (
               <div className="flex gap-10">
@@ -53,7 +53,12 @@ const Header = () => {
                 <NavLink to="/Signup">SignUp</NavLink>
               </div>
             )}
-            {user && <NavLink to="/dashboard">Dashboard</NavLink>}
+            {user && (
+              <div className="flex gap-10">
+                <NavLink to="/dashboard">Dashboard</NavLink>
+                <NavLink to="/profile">Profile</NavLink>
+              </div>
+            )}
           </ul>
         </div>
         <div className="navbar-end">

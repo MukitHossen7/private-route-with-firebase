@@ -1,11 +1,11 @@
 import { useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../Provider/AuthProvider";
 import toast from "react-hot-toast";
 
 const Signup = () => {
   const { createUser } = useContext(AuthContext);
-
+  const navigate = useNavigate();
   const handleSignUp = (e) => {
     e.preventDefault();
     const email = e.target.email.value;
@@ -16,6 +16,8 @@ const Signup = () => {
       .then((result) => {
         console.log(result);
         toast.success("Sign Up Success");
+        e.target.reset();
+        navigate("/");
       })
       .catch((error) => {
         console.log("ERROR: " + error);

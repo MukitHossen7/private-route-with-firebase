@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link, Navigate, NavLink } from "react-router-dom";
 import { AuthContext } from "../../Provider/AuthProvider";
 import toast from "react-hot-toast";
 
@@ -8,6 +8,7 @@ const Header = () => {
   const handleSignOut = () => {
     logOutUser();
     toast.success("Logged out successfully");
+    <Navigate to="/login"></Navigate>;
   };
 
   return (
@@ -38,6 +39,7 @@ const Header = () => {
               <NavLink to="/">Home</NavLink>
               <NavLink to="/login">LogIn</NavLink>
               <NavLink to="/Signup">SignUp</NavLink>
+              {user && <NavLink to="/dashboard">Dashboard</NavLink>}
             </ul>
           </div>
           <Link className="text-xl font-bold">daisyUI</Link>
@@ -45,8 +47,13 @@ const Header = () => {
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal px-1 gap-10">
             <NavLink to="/">Home</NavLink>
-            <NavLink to="/login">LogIn</NavLink>
-            <NavLink to="/Signup">SignUp</NavLink>
+            {!user && (
+              <div className="flex gap-10">
+                <NavLink to="/login">LogIn</NavLink>
+                <NavLink to="/Signup">SignUp</NavLink>
+              </div>
+            )}
+            {user && <NavLink to="/dashboard">Dashboard</NavLink>}
           </ul>
         </div>
         <div className="navbar-end">

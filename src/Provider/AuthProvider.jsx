@@ -1,7 +1,10 @@
 /* eslint-disable react/prop-types */
 import {
   createUserWithEmailAndPassword,
+  GithubAuthProvider,
+  GoogleAuthProvider,
   onAuthStateChanged,
+  signInWithPopup,
   signOut,
 } from "firebase/auth";
 import { createContext, useEffect, useState } from "react";
@@ -10,6 +13,8 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 
 export const AuthContext = createContext();
 const AuthProvider = ({ children }) => {
+  const googleProvider = new GoogleAuthProvider();
+  const githubProvider = new GithubAuthProvider();
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const profession = "programming";
@@ -23,6 +28,12 @@ const AuthProvider = ({ children }) => {
   };
   const logOutUser = () => {
     return signOut(auth);
+  };
+  const loginGoogle = () => {
+    return signInWithPopup(auth, googleProvider);
+  };
+  const loginGithub = () => {
+    return signInWithPopup(auth, githubProvider);
   };
   useEffect(() => {
     const connection = onAuthStateChanged(auth, (currentUser) => {
@@ -41,6 +52,8 @@ const AuthProvider = ({ children }) => {
     createLoginUser,
     logOutUser,
     loading,
+    loginGoogle,
+    loginGithub,
   };
 
   return (

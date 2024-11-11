@@ -4,7 +4,7 @@ import { AuthContext } from "../Provider/AuthProvider";
 import toast from "react-hot-toast";
 
 const Login = () => {
-  const { createLoginUser } = useContext(AuthContext);
+  const { createLoginUser, loginGoogle, loginGithub } = useContext(AuthContext);
   const navigate = useNavigate();
   const handleLogin = (e) => {
     e.preventDefault();
@@ -21,6 +21,28 @@ const Login = () => {
       .catch((error) => {
         console.log("ERROR" + error);
         toast.error("Invalid email and password");
+      });
+  };
+  const handleSignInGoogle = () => {
+    loginGoogle()
+      .then((result) => {
+        console.log(result);
+        navigate("/");
+        toast.success("Login with Google successful");
+      })
+      .catch((error) => {
+        console.log("ERROR" + error);
+      });
+  };
+  const handleSignInGithub = () => {
+    loginGithub()
+      .then((result) => {
+        console.log(result);
+        navigate("/");
+        toast.success("Login with Github successful");
+      })
+      .catch((error) => {
+        console.log("ERROR" + error);
       });
   };
   return (
@@ -64,6 +86,20 @@ const Login = () => {
               <button className="btn btn-primary">Login</button>
             </div>
           </form>
+          <div className="flex justify-around">
+            <button
+              onClick={handleSignInGoogle}
+              className="btn btn-outline btn-accent"
+            >
+              Google
+            </button>
+            <button
+              onClick={handleSignInGithub}
+              className="btn btn-outline btn-accent"
+            >
+              Github
+            </button>
+          </div>
           <p className="text-sm my-3 text-center">
             New to the website? please{" "}
             <span className="text-sky-500 underline font-bold">
